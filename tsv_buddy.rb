@@ -28,7 +28,7 @@ module TsvBuddy
     line = ''
     keys_array = @data[0].keys
     line << keys_array[0]
-    keys_array.shift
+    keys_array.shift # maybe there is a better way of implementing this rather than dealing with the first heading value on its own
     keys_array.each { |key| line << "\t" + key }
     line << "\n"
     @data.each do |record|
