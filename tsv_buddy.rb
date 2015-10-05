@@ -7,14 +7,15 @@ module TsvBuddy
   # take_tsv: converts a String with TSV data into @data
   # parameter: tsv - a String in TSV format
   def take_tsv(tsv)
-    survey, lines = [], []
+    survey = []
+    lines = []
     tsv.each_line { |line| lines << line }
     keys = lines[0].split("\t")
     keys.map!(&:chomp)
     lines.shift
     lines.each do |line|
       values = line.split("\t")
-      record = Hash.new
+      record = {}
       keys.each_index { |index| record[keys[index]] = values[index].chomp }
       survey.push(record)
     end
@@ -27,11 +28,11 @@ module TsvBuddy
     line = ''
     keys_array = @data[0].keys
     line << keys_array[0]
-    keys_array.shift
+    keys_array.shift # maybe there is a better way of implementing this rather than dealing with the first heading value on its own
     keys_array.each { |key| line << "\t" + key }
     line << "\n"
     @data.each do |record|
-      line << record.map{|k,v| "#{v}"}.join("\t")
+      line << record.map { |_, v| "#{v}" }.join("\t")
       line << "\n"
     end
     line.chomp("\t")
