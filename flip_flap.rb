@@ -5,5 +5,5 @@ require 'yaml'
 class FlipFlap
   # Do NOT create an initialize method
   include TsvBuddy
-  include YamlBuddy  
+  include YamlBuddy
 end
